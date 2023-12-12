@@ -8,6 +8,7 @@ Clone the repository to your machine and install the dependencies using **pip** 
 
 ```bash
 git clone https://github.com/m3m0o/zoneminder-snapshots-rce-poc
+cd zoneminder-snapshots-rce-poc
 pip install -r requirements.txt
 ```
 
