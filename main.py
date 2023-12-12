@@ -1,4 +1,3 @@
-import ipaddress
 from argparse import ArgumentParser
 from zoneminder_snapshots import ZoneminderSnapshots
 
