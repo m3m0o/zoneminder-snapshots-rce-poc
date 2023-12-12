@@ -35,7 +35,9 @@ class ZoneminderSnapshots:
     def get_csrf_token(self) -> str:
         self.connection.request('GET', '/index.php')
 
-        html_content = self.connection.getresponse().read().decode('utf-8')
+        response = self.connection.getresponse()
+        html_content = response.read().decode('utf-8')
+        response.close()
 
         return BeautifulSoup(html_content, 'html.parser').find('input', {'name': '__csrf_magic'}).get('value')
 
@@ -50,9 +52,11 @@ class ZoneminderSnapshots:
         initial_time = time.time()
 
         self.connection.request('POST', '/index.php', body=urlencode(data), headers=self.headers)
-        self.connection.getresponse()
+        response = self.connection.getresponse()
 
         final_time = time.time()
+
+        response.close()
 
         if (final_time - initial_time) < 10:
             return False
