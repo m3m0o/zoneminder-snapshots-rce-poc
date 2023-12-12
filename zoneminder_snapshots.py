@@ -39,7 +39,7 @@ class ZoneminderSnapshots:
 
         return BeautifulSoup(html_content, 'html.parser').find('input', {'name': '__csrf_magic'}).get('value')
 
-    def check_vulnerable(self, connection: Union[HTTPConnection, HTTPSConnection]) -> bool:
+    def check_vulnerable(self) -> bool:
         data = {
             'view': 'snapshot',
             'action': 'create',
@@ -49,8 +49,8 @@ class ZoneminderSnapshots:
 
         initial_time = time.time()
 
-        connection.request('POST', '/index.php', body=urlencode(data), headers=self.headers)
-        connection.getresponse()
+        self.connection.request('POST', '/index.php', body=urlencode(data), headers=self.headers)
+        self.connection.getresponse()
 
         final_time = time.time()
 
