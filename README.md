@@ -1,4 +1,4 @@
-# Zoneminder Unauthenticated RCE (CVE-2023-26035) POC
+# Zoneminder Unauthenticated RCE via Snapshots (CVE-2023-26035) POC
 
 This is a script written in Python that allows the exploitation of the **Zoneminder's** security flaw in the described in **CVE 2023-26035**. The system is vulnerable in versions preceding **1.36.33** and **1.37.33.**
 
